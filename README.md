@@ -20,30 +20,6 @@ SSO_SERVER=http://server.address
 SSO_BROKER_ID=BROKER ID
 SSO_BROKER_SECRET=BROKER SECRET
 ```
-Disable cookie session encryption. Override **handle** method in **EncryptCookies** middleware:
-```php
-public function handle($request, Closure $next)
-{
-    $this->except[] = env('SESSION_COOKIE');
-    return parent::handle($request, $next);
-}
-```
-Change **cookie** key in **config/session.php** to:
-```php
-'cookie' => env('SESSION_COOKIE'),
-```
-Disable session regenerate after login success. Override **sendLoginResponse** in **LoginController**:
-```php
-protected function sendLoginResponse(Request $request)
-{
-    //$request->session()->regenerate();
-
-    $this->clearLoginAttempts($request);
-
-    return $this->authenticated($request, $this->guard()->user())
-            ?: redirect()->intended($this->redirectPath());
-}
-```
 Register middleware **CodeEdu\LaravelSso\Middleware\AttachBroker** in **routes** key in **Kernel.php**.
 
 Register **sso** in **config/auth.php**:
@@ -59,14 +35,4 @@ Register **sso** in **config/auth.php**:
 Set environment variable:
 ```
 SSO_TYPE=server
-```
-
-Start session in api middleware. Override **api** key in **Kernel.php**
-
-```php
-'api' => [
-    'throttle:60,1',
-    'bindings',
-    \Illuminate\Session\Middleware\StartSession::class,
-],
 ```
