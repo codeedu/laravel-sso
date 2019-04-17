@@ -1,0 +1,25 @@
+{
+  "name": "codeedu/laravel-sso",
+  "require": {
+    "php": "^7.1.3",
+    "illuminate/session": "~5.5",
+    "illuminate/cookie": "~5.5",
+    "illuminate/routing": "~5.5",
+    "illuminate/validation": "~5.5",
+    "jasny/sso": "^0.3.0",
+    "illuminate/cache": "~5.5",
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "CodeEdu\\LaravelSso\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "CodeEdu\\LaravelSso\\SSOServiceProvider"
+      ]
+    }
+  }
+}
